@@ -2,17 +2,24 @@
 
 namespace App\Models;
 
+use App\Observers\ReportObserver;
 use Database\Factories\ReportFactory;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+#[ObservedBy(ReportObserver::class)]
 class Report extends Model
 {
     /** @use HasFactory<ReportFactory> */
     use HasFactory;
     use HasUlids;
 
+    /**
+     * @var array<int, string>
+     */
     protected $fillable = [
         'url',
         'content_type',
@@ -23,10 +30,10 @@ class Report extends Model
         'http_version',
         'appconnect-time',
         'connect_time',
-        'namelookur-time',
-        'pretranster-time',
+        'namelookur_time',
+        'pretranster_time',
         'redirect_time',
-        'stanttranster-time',
+        'stanttranster_time',
         'total_time',
         'check_id',
         'started_at',
@@ -34,6 +41,9 @@ class Report extends Model
     ];
 
 
+    /**
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [
@@ -54,5 +64,14 @@ class Report extends Model
         ];
     }
 
-
+    /**
+     * @return BelongsTo<Check>
+     */
+    public function check(): BelongsTo
+    {
+        return $this->belongsTo(
+            related: Check::class,
+            foreignKey: 'check_id'
+        );
+    }
 }

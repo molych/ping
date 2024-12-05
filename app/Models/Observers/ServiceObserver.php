@@ -13,9 +13,9 @@ final class ServiceObserver
      */
     public function created(Service $service): void
     {
-        $this->forgetServicesForUser(
-            id: $service->user_id
-        );
+//        $this->forgetServicesForUser(
+//            id: $service->user_id
+//        );
     }
 
     /**
@@ -23,13 +23,13 @@ final class ServiceObserver
      */
     public function updated(Service $service): void
     {
-        $this->forgetServicesForUser(
-            id: $service->user_id
-        );
-
-        $this->forgetService(
-            ulid: $service->id
-        );
+//        $this->forgetServicesForUser(
+//            id: $service->user_id
+//        );
+//
+//        $this->forgetService(
+//            ulid: $service->id
+//        );
     }
 
     /**
@@ -37,13 +37,13 @@ final class ServiceObserver
      */
     public function deleted(Service $service): void
     {
-        $this->forgetServicesForUser(
-            id: $service->user_id
-        );
-
-        $this->forgetService(
-            ulid: $service->id
-        );
+//        $this->forgetServicesForUser(
+//            id: $service->user_id
+//        );
+//
+//        $this->forgetService(
+//            ulid: $service->id
+//        );
     }
 
     /**
@@ -64,15 +64,15 @@ final class ServiceObserver
 
     protected function forgetServicesForUser(string $id): void
     {
-        Cache::forget(
-            key: CacheKey::User_services->value . '_' . $id,
-        );
+//        Cache::forget(
+//            key: CacheKey::User_services->value . '_' . $id,
+//        );
     }
 
     protected function forgetService(string $ulid): void
     {
-        Cache::forget(
-            key: CacheKey::Service->value . '_' . $ulid,
-        );
+//        Cache::forget(
+//            key: CacheKey::Service->value . '_' . $ulid,
+//        );
     }
 }
